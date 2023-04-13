@@ -269,3 +269,57 @@ a = 10, b = 10, c = 12 | ISOSCELES | Equivalance Partitioning
 a = 12, b = 10, c = 10 | ISOSCELES | Equivalance Partitioning
 a = 50, b = 25, c = 50 | ISOSCELES | Equivalance Partitioning
 a = 5, b = 6, c = 10 | SCALENE | Boundary Condition
+
+> file5.java checks if string s1 is a prefix to string s2 or not.
+
+Test Cases for **prefix(String s1, String s2)**
+
+```
+import static org.junit.jupiter.api.Assertions.*;
+
+class Test5 {
+	@Test
+	void isPrefix1() {
+		assertTrue( file5.prefix("", "") );
+	}
+	@Test
+	void isPrefix2() {
+		assertTrue( file5.prefix("app", "apple") );
+	}
+	@Test
+	void isPrefix3() {
+		assertTrue( file5.prefix("apple", "apple") );
+	}
+	@Test
+	void isPrefix4() {
+		assertTrue( file5.prefix("", "apple") );
+	}
+	@Test
+	void notPrefix2() {
+		assertFalse( file5.prefix("app le", "apple"));
+	}
+	@Test
+	void notPrefix3() {
+		assertFalse( file5.prefix(" app", "apple"));
+	}
+	@Test
+	void notPrefix1() {
+		assertFalse( file5.prefix("apple", "app"));
+	}
+}
+```
+For given inputs,
+
+TesterAction and Input Data  | Expected Outcome | Test Case Type
+---------------------------  | :--------------: | --------------
+s1="", s2="" | true | Boundary Condition
+s1="app", s2="apple" | true | Equivalence Partitioning
+s1="apple", s2="apple" | true | Boundary Condition
+s1="", s2="apple" | true | Boundary Condition
+s1="app le", s2="apple" | false | Boundary Condition
+s1=" app", s2="apple" | false | Boundary Condition
+s1="apple", s2="app" | false | Equivalence Partitioning
+
+> file6 assumes the problem domain of file4 with A, B, and C as floating values instead of integers
+
+# A. Equivalence classes for the system
