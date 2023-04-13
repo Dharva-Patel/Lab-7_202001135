@@ -10,20 +10,25 @@ Lab: 07 - Black-box and white-box testing
 
 For the program to calculate previous Date, the possible test cases are as follows
 
+1. Equivalence Partitioning 
+
+Input Data | Expected Outcome
+:--------: | ---------------
+Valid day, Month, and Year | Previous Date
+Invalid day < 1 or > 31 | Error Message
+Invalid month < 1 or > 12 | Error Message
+Invalid year < 1900 or > 2015 | Error Message
+
+2. Boundary Value Analysis (DD-MM-YYYY) 
+
 Input Data | Expected Outcome
 ---------- | ---------------
-Equivalence Partitioning |
-Valid day, Month, and Year | Previous Date
-Valid Month, Valid year, day<1 or day>31 | Error Message
-Month < 1 | Error Message
-Month > 12 | Error Message
-Invalid year < 1900 or > 2015 | Error Message
-Boundary Value Analysis (DD-MM-YYYY) |
-01/01/1900 | 31/12/1989
-28/2/1900 | 27/2/1900
-29/2/1900 | Error Message
+01/01/1990 | INVALID
+28/2/1990 | 27/2/1900
+29/02/2001 | INVALID
+29/02/2012 | 28/02/2012
 1/5/2000 | 30/4/2000
-31/4/2010 | Error Message
+31/06/2010 | INVALID
 31/12/2015 | 30/12/2015
 
 I made 5 distinct JAVA files, file1.java, file2.java, file3.java, file4.java, and file5.java, to test the scripts. The matching function code to be tested is contained in each file.
@@ -78,7 +83,7 @@ arr=[8,2,-7,-13,2,5,-3], x=-6 | -1 | Boundary Value Analysis
 
 Test Cases for **CountElement(int x, int[] arr)**
 
-````
+```
 import static org.junit.jupiter.api.Assertions.*;
 
 class Test2 {
@@ -111,7 +116,7 @@ class Test2 {
 		assertEquals(file2.countElement(x, arr), count);
 	}
 }
-````
+```
 
 For given inputs,
 
@@ -322,4 +327,133 @@ s1="apple", s2="app" | false | Equivalence Partitioning
 
 > file6 assumes the problem domain of file4 with A, B, and C as floating values instead of integers
 
-# A. Equivalence classes for the system
+### A. Equivalence classes for the system
+
+possible equivalence classes and their corresponding conditions:
+
+Equivalence Class | Neccesary Condition
+---------- | ---------------
+Equilateral Triangle | $A == B$ and $B == C$
+Invalid Triangle | $A > B+C$ or $B > A+C$ or $C > A+B$
+Isoceles Triangle | $A == B$ or $B == C$ or $A == C$
+Right-angle Triangle | $A^2 + B^2 = C^2$ or $A^2 = B^2 + C^2$ or $B^2 + A^2 = C^2$
+Scalene Triangle | $A!=B$ and $B!=C$ and $C!=A$
+
+### B. Test Cases for Equivalence Classes
+
+list of test cases each belonging to one of the defined Equivalence class:
+
+Test Case | Condition | Expected Outcome
+:---: | ----- | ----- 
+1 | A = 5, B = 5, C = 5 | Equilateral Triangle
+2 | A = 1, B = 1, C = 3	| Invalid Triangle
+3 | A = 2, B = 2, C = 3	| Isosceles Triangle
+4 | A = 3, B = 4, C = 5	| Right-angle Triangle
+5 | A = 4, B = 4, C = 7	| Scalene Triangle
+
+### C. Boundary Condition $A + B > C$ (scalene triangle)
+list of possible edge cases looking like scalene triangle but aren't
+
+Test Case | Condition | Expected Outcome
+:---: | ----- | ----- 
+1 | A = 1, B = 2, C = 2.9 | Scalene Triangle
+2 | A = 1, B = 2, C = 3	| Invalid Triangle
+3 | A = 1, B = 1, C = 2	| Invalid Triangle
+4 | A = 2, B = 3, C = 5	| Invalid Triangle
+5 | A = 0.1, B = 0.1, C = 0.3 | Invalid Triangle
+
+### D. Boundary Condition $A = C$ (isosceles triangle)
+list of possible edge cases looking like isosceles triangle but aren't
+
+Test Case | Condition | Expected Outcome
+:---: | ----- | ----- 
+1 | A = 0.15, B = 0.2, C = 0.15 | Isosceles Triangle
+2 | A = 0, B = 2, C = 0	| Invalid Triangle
+3 | A = 0.1, B = 0.3, C = 0.1	| Invalid Triangle
+4 | A = 1, B = 3, C = 1	| Invalid Triangle
+5 | A = -4, B = 3, C = -4 | Invalid Triangle
+
+### E. Boundary Condition $A = B = C$ (equilateral triangle)
+
+list of possible edge cases looking like isosceles triangle but aren't
+
+Test Case | Condition | Expected Outcome
+:---: | ----- | ----- 
+1 | A = 0.5, B = 0.5, C = 0.5 | Equilateral Triangle
+2 | A = 4, B = 4, C = 4 | Equilateral Triangle
+3 | A = 0, B = 0, C = 0	| Invalid Triangle
+4 | A = -3, B = -3, C = -3 | Invalid Triangle
+
+### F. Boundary Condition $A^2 + B^2 = C^2$ (right-angle triangle)
+
+list of possible corner cases looking like right-angle triangle but aren't
+
+Test Case | Condition | Expected Outcome
+:---: | ----- | ----- 
+1 | A = 1, B = 1.414, C = 1.73 | Right Angled Triangle
+2 | A = 6, B = 8, C = 10 | Right Angled Triangle
+3 | A = -1, B = 1.414, C = -1.73 | Invalid Triangle
+4 | A = 6, B = -8, C = 10 | Invalid Triangle
+
+### G. Non-triangle Case
+
+list of possible Invalid Triangle cases
+
+Test Case | Condition | Expected Outcome
+:---: | ----- | ----- 
+1 | A = 0, B = 0, C = 0 | Invalid Triangle
+2 | A = 1, B = 1.414, C = -9.73 | Invalid Triangle
+3 | A = 3, B = 4, C = 8 | Invalid Triangle
+4 | A = -1, B = -1.414, C = 1.73 | Invalid Triangle
+5 | A = -4, B = -3, C = 5 | Invalid Triangle
+6 | A = 111, B = 1.414, C = 9.73 | Invalid Triangle
+7 | A = 1, B = 60, C = 9.73 | Invalid Triangle
+
+### H. Non-positive Input
+
+list of possible Invalid Triangle cases
+
+Test Case | Condition | Expected Outcome
+:---: | ----- | ----- 
+1 | A = 1, B = -3, C = 8 | Invalid Triangle
+2 | A = -7, B = 6, C = 4 | Invalid Triangle
+3 | A = -6, B = -8, C = -9 | Invalid Triangle
+
+# Section B
+
+## 1. Control flow graph
+
+![1 drawio (2)](https://user-images.githubusercontent.com/83646997/231789294-ee81c29f-61ee-4642-99db-377ed46012d6.png)
+
+
+## 2. Criteria specific test case for flow graph
+
+### a. Statement Coverage
+
+Test Case | Input | Expected Output
+:---: | ----- | ----- 
+1 | p=[] | Empty Vector
+2 | p=[(1,1)] | Vector with Single Point
+3 | p=[(1,1),(2,2),(3,3)] | Vector with 3 Points
+
+### b. Branch Coverage
+
+Test Case | Input | Expected Output
+:---: | ----- | ----- 
+1 | p=[] | Empty Vector
+2 | p=[(1,1),(2,2)] | Vector with 2 points
+3 | p=[(1,1),(2,2),(3,1),(4,3)] | Vector with 4 Points
+4 | p=[(1,2),(3,1),(2,1)] | Vector with 3 points in different order
+
+
+### c. Basic Condition Coverage
+
+Test Case | Input | Expected Output
+:----: | ---- | ----
+1 | p=[] | Empty Vector
+2 | p=[(1,1),(2,2)] | Vector with 2 points
+3 | p=[(1,1),(1,1),(1,1)] | vector with identical points
+4 | p=[(1,1),(2,2),(1,1)] | vector with two identical points
+5 | p=[(1,1),(2,2),(3,1),(4,3)] | vector with 4 points
+6 | p=[(1,2),(3,1),(2,1)] | Vector with 3 indentical points
+
