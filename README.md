@@ -29,5 +29,243 @@ Boundary Value Analysis (DD-MM-YYYY) |
 I made 5 distinct JAVA files, file1.java, file2.java, file3.java, file4.java, and file5.java, to test the scripts. The matching function code to be tested is contained in each file.
 > Code for doing linear search on an array of integers in file1.java is provided to retrieve the index of a certain number. It returns -1 if fails to locate.
 
-linearSearch(int v, int[] a)
+Test Cases for **linearSearch(int x, int[] arr)**
 
+```
+import static org.junit.jupiter.api.Assertions.*;
+class Test1 {
+  @Test
+  void returnIndex1() {
+    int[] arr = {8, 2, -7, -13, 2, 5, -3};
+    int expected = 5;
+    int x = 5;
+    assertEquals(file1.linearSearch(x, arr), expected);
+  }
+  @Test
+  void returnIndex2() {
+    int[] arr = {8, 2, -7, -13, 2, 5, -3};
+    int expected = 1;
+    int x = 2;
+    assertEquals(file1.linearSearch(x, arr), expected);
+  }
+  @Test
+  void returnInvalid1() {
+    int[] arr = {8, 2, -7, -13, 2, 5, -3};
+    int expected = -1;
+    int x = 4;
+    assertEquals(file1.linearSearch(x, arr), expected);
+  }
+  @Test
+  void returnInvalid2() {
+    int[] arr = {8, 2, -7, -13, 2, 5, -3};
+    int expected = -1;
+    int x = -6;
+    assertEquals(file1.linearSearch(x, arr), expected);
+  }
+}
+```
+
+For the  given inputs, 
+
+TesterAction and Input Data  | Expected Outcome | Test Case Type
+---------------------------  | :--------------: | --------------
+arr=[8,2,-7,-13,2,5,-3], x=5 | 5 | Equivalence Partitioning
+arr=[8,2,-7,-13,2,5,-3], x=2 | 1 | Equivalence Partitioning
+arr=[8,2,-7,-13,2,5,-3], x=4 | -1 | Boundary Value Analysis
+arr=[8,2,-7,-13,2,5,-3], x=-6 | -1 | Boundary Value Analysis
+
+> file2.java counts occurrence of a particular value in an array of integers.
+
+Test Cases for **CountElement(int x, int[] arr)**
+
+````
+import static org.junit.jupiter.api.Assertions.*;
+
+class Test2 {
+	@Test
+	void present1() {
+		int[] arr = {5,5,2,-3,6,7,-2,5,2,6};
+		int x = 5;
+		int count = 3;
+		assertEquals(file2.countElement(x, arr), count);
+	}
+	@Test
+	void absent1() {
+		int[] arr = {5,5,2,-3,6,7,-2,5,2,6};
+		int x = 1;
+		int count = 0;
+		assertEquals(file2.countElement(x, arr), count);
+	}
+	@Test
+	void present2() {
+		int[] arr = {5,5,2,-3,6,7,-2,5,2,6};
+		int x = 7;
+		int count = 1;
+		assertEquals(file2.countElement(x, arr), count);
+	}
+	@Test
+	void absent2() {
+		int[] arr = {5,5,2,-3,6,7,-2,5,2,6};
+		int x = -4;
+		int count = 0;
+		assertEquals(file2.countElement(x, arr), count);
+	}
+}
+````
+
+For given inputs,
+
+TesterAction and Input Data  | Expected Outcome | Test Case Type
+---------------------------  | :--------------: | --------------
+arr=[5,5,2,-3,6,7,-2,5,2,6], x=5 | 3 | Equivalence Partitioning
+arr=[5,5,2,-3,6,7,-2,5,2,6], x=1 | 0 | Boundary Value Analysis
+arr=[5,5,2,-3,6,7,-2,5,2,6], x=7 | 1 | Boundary Value Analysis
+arr=[5,5,2,-3,6,7,-2,5,2,6], x=-4 | 0 | Boundary Value Analysis
+
+>file3.java performs binary search on a sorted array of integers to find a specific value. It returns -1, if the value is not found.
+
+Test Cases for **binarySearch(int x, int[] arr)**
+
+```
+import static org.junit.jupiter.api.Assertions.*;
+
+class Test3 {
+	@Test
+	void findElement1() {
+		int[] arr = {0,1,2,3,4,5,6,7,8,9};
+    int x = 6;
+    int expected = 6;
+		assertEquals(file3.binarySearch(x, arr), expected);
+	}
+	@Test
+	void findElement2() {
+		int[] arr = {0,2,3,5,8,13};
+    int x = 13;
+    int expected = 5;
+		assertEquals(file3.binarySearch(x, arr), expected);
+	}
+	@Test
+	void findElement3() {
+		int[] arr = {0,2,3,5,8,13};
+    int x = 0;
+    int expected = 0;
+		assertEquals(file3.binarySearch(x, arr), expected);
+	}
+	@Test
+	void absentElement1() {
+		int[] arr = {0,2,3,5,7,11};
+    int x = 6;
+    int expected = -1;
+		assertEquals(file3.binarySearch(x, arr), expected);
+	}
+	@Test
+	void absentElement2() {
+		int[] arr = {};
+    int x = 2;
+    int expected = -1;
+		assertEquals(file3.binarySearch(x, arr), expected);
+	}
+}
+```
+
+For given inputs,
+
+TesterAction and Input Data  | Expected Outcome | Test Case Type
+---------------------------  | :--------------: | --------------
+arr=[0,1,2,3,4,5,6,7,8,9], x=6 | 6 | Equivalence Partitioning
+arr=[0,2,3,5,8,13], x=13 | 5 | Equivalence Partitioning
+arr=[0,2,3,5,8,13], x=0 | 0 | Boundary Value Analysis
+arr=[0,2,3,5,7,11], x=6 | -1 | Boundary Value Analysis
+arr=[], x=2 | -1 | Boundary Value Analysis
+
+> file4.java checks if given measurements are sides of a SCALENE (2), ISOSCELES (1), or an EQUILATERAL (0) triangle. Returns INVALID (3) if given sides cannot form any triangle.
+
+Test Cases for **triangle(int a, int b, int c)**
+
+```
+import static org.junit.jupiter.api.Assertions.*;
+
+class Test4 {
+	@Test
+	void invalid1() {
+		int a = 0, b = 0, c = 0;
+		int expected = file4.INVALID;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void invalid2() {
+		int a = 0, b = 4, c = 0;
+		int expected = file4.INVALID;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void invalid3() {
+		int a = 9, b = 8, c = 0;
+		int expected = file4.INVALID;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void invalid4() {
+		int a = 9, b = 8, c = 200;
+		int expected = file4.INVALID;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void invalid5() {
+		int a = -7, b = -7, c = -7;
+		int expected = file4.INVALID;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void equilateral1() {
+		int a = 5, b = 5, c = 5;
+		int expected = file4.EQUILATERAL;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void equilateral2() {
+		int a = 50, b = 50, c = 50;
+		int expected = file4.EQUILATERAL;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void isosceles1() {
+		int a = 10, b = 10, c = 12;
+		int expected = file4.ISOSCELES;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void isosceles2() {
+		int a = 12, b = 10, c = 10;
+		int expected = file4.ISOSCELES;;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void isosceles3() {
+		int a = 50, b = 25, c = 50;
+		int expected = file4.ISOSCELES;;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+	@Test
+	void scalene1() {
+		int a = 5, b = 6, c = 10;
+		int expected = file4.SCALENE;
+		assertEquals(file4.triangle(a, b, c), expected);
+	}
+}
+```
+For given inputs,
+
+TesterAction and Input Data  | Expected Outcome | Test Case Type
+---------------------------  | :--------------: | --------------
+a = 0, b = 0, c = 0 | INVALID | Boundary Condition
+a = 0, b = 4, c = 0 | INVALID | Boundary Condition
+a = 9, b = 8, c = 0 | INVALID | Boundary Condition
+a = 9, b = 8, c = 200 | INVALID | Equivalance Partitioning
+a = -7, b = -7, c = -7 | INVALID | Boundary Condition
+a = 5, b = 5, c = 5 | EQUILATERAL | Equivalance Partitioning
+a = 50, b = 50, c = 50 | EQUILATERAL | Equivalance Partitioning
+a = 10, b = 10, c = 12 | ISOSCELES | Equivalance Partitioning
+a = 12, b = 10, c = 10 | ISOSCELES | Equivalance Partitioning
+a = 50, b = 25, c = 50 | ISOSCELES | Equivalance Partitioning
+a = 5, b = 6, c = 10 | SCALENE | Boundary Condition
